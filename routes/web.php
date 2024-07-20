@@ -1,13 +1,15 @@
 <?php
 
+use App\Actions\SubmitOrder;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('SubmitOrder');
 });
+
+Route::post('/order/store', SubmitOrder::class)->name('order.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
