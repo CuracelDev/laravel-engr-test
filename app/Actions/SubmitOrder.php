@@ -26,7 +26,7 @@ class SubmitOrder
         DB::beginTransaction();
         try {
             $data['total_price'] = collect($data['items'])->sum(function ($item) {
-                return $item['unit_price'] * $item['quantity'];
+                return $item['sub_total'];
             });
 
             $order = Order::query()->create($data);
@@ -51,8 +51,9 @@ class SubmitOrder
             'encounter_date' => ['required', 'date', 'before_or_equal:today'],
             'items' => ['required', 'array', 'min:1'],
             'items.*.name' => ['required', 'string'],
-            'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+            'items.*.unit_price' => ['required', 'numeric', 'min:1'],
             'items.*.quantity' => ['required', 'integer', 'min:1'],
+            'items.*.sub_total' => ['required', 'integer', 'min:1'],
         ];
     }
 
