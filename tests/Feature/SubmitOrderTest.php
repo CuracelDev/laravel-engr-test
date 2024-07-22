@@ -154,9 +154,9 @@ class SubmitOrderTest extends TestCase
             'provider_name' => 'Test Provider',
             'encounter_date' => $encounterDate,
             'items' => [
-                ['name' => 'Item 1', 'unit_price' => 10, 'quantity' => 2],
-                ['name' => 'Item 2', 'unit_price' => 16, 'quantity' => 5],
-                ['name' => 'Item 3', 'unit_price' => 6, 'quantity' => 12],
+                ['name' => 'Item 1', 'unit_price' => 10, 'quantity' => 2, 'sub_total' => 20],
+                ['name' => 'Item 2', 'unit_price' => 16, 'quantity' => 5, 'sub_total' => 80],
+                ['name' => 'Item 3', 'unit_price' => 6, 'quantity' => 12, 'sub_total' => 72],
             ],
         ];
     }
