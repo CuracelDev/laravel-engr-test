@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Actions\SendOrderCreatedNotification;
+use App\Actions\SubmitOrder;
+use App\Events\CreateOrder;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::listen(CreateOrder::class, SubmitOrder::class);
     }
 }

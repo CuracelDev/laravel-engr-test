@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Models\Hmo;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('SubmitOrder');
+    return Inertia::render('SubmitOrder', [
+        'hmos' => Hmo::all(['code', 'id']),
+    ]);
 });
 
 Route::get('/dashboard', function () {
