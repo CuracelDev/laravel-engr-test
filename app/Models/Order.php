@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
-    protected $fillable = ['hmo_code', 'provider_name', 'encounter_date', 'total_price'];
     protected $casts = [
+        'items' => 'array',
         'encounter_date' => 'datetime',
     ];
 

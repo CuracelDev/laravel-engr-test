@@ -10,7 +10,7 @@ class Batch extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hmo_id', 'name', 'month', 'year', 'status', 'processed_at'];
+    protected $guarded = ['id'];
     protected $casts = [
         'status' => BatchStatusEnum::class
     ];
