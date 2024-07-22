@@ -1,15 +1,15 @@
 <?php
 
-use App\Actions\SubmitOrder;
 use App\Http\Controllers\ProfileController;
+use App\Models\Hmo;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('SubmitOrder');
+    return Inertia::render('SubmitOrder', [
+        'hmos' => Hmo::all(['code', 'id']),
+    ]);
 });
-
-Route::post('/order/store', SubmitOrder::class)->name('order.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

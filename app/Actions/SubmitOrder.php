@@ -31,11 +31,12 @@ class SubmitOrder
 
             $order = Order::query()->create($data);
 
-            $this->assignOrderToBatch($order);
+            $order = $this->assignOrderToBatch($order);
             DB::commit();
 
+            CreateOrder::dispatch($order);
 
-            return $order->load('items');
+            return $order->load('batch');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th->getMessage());
@@ -83,9 +84,11 @@ class SubmitOrder
 
         $order->batch()->associate($batch);
         $order->save();
+
+        return $order;
     }
 
-    public function jsonResponse(Order $order, ActionRequest $request): JsonResponse
+    public function jsonResponse(Order $order): JsonResponse
     {
         return $this->responseJson(
             data: $order,
