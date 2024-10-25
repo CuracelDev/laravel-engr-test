@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id')->unique();
-            $table->unsignedBigInteger('batch_id');
-            $table->date('encounter_date');
-            $table->decimal('total', 10, 2);
+            $table->string('name');
             $table->timestamps();
-
-            $table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('providers');
     }
 };

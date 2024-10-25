@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Hmo extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "email",
+        "code",
+        "batches_type"
+    ];
 }
