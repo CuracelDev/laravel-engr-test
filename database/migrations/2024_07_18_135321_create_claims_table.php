@@ -10,6 +10,11 @@ return new class extends Migration
     {
         Schema::create('claims', function (Blueprint $table) {
             $table->id();
+            $table->string('provider_name');
+            $table->unsignedBigInteger('insurer_code');
+            $table->foreign('insurer_code')->references('id')->on('insurers')->onDelete('cascade');
+            $table->string('encounter_date');
+            $table->string('total_value');
             $table->timestamps();
         });
     }

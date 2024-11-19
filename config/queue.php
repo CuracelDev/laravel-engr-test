@@ -108,5 +108,10 @@ return [
         'database' => env('DB_CONNECTION', 'sqlite'),
         'table' => 'failed_jobs',
     ],
+    'queues' => [
+        'default' => 'default',
+        'high_priority' => 'high_priority',
+        'low_priority' => 'low_priority',
+    ],
 
 ];
