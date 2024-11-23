@@ -11,6 +11,10 @@ return new class extends Migration
         Schema::create('insurers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->decimal('processing_cost', 10, 2);
+            $table->integer('daily_capacity');
+            $table->integer('min_batch_size');
+            $table->integer('max_batch_size');
             $table->string('code')->unique();
             $table->timestamps();
         });
@@ -20,4 +24,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('insurers');
     }
-}; 
+};

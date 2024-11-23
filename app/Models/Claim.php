@@ -10,4 +10,19 @@ class Claim extends Model
     use HasFactory;
 
     protected $table = 'claims';
-} 
+
+    protected $fillable = [
+        'insurer_id',
+        'encounter_date',
+        'submission_date',
+        'priority_level',
+        'specialty_type',
+        'monetary_value',
+        'items',
+    ];
+
+    public function insurer()
+    {
+        return $this->belongsTo(Insurer::class);
+    }
+}

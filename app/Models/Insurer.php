@@ -10,4 +10,18 @@ class Insurer extends Model
     use HasFactory;
 
     protected $table = 'insurers';
+
+    protected $fillable = [
+        'name',
+        'code',
+        'processing_cost',
+        'daily_capacity',
+        'min_batch_size',
+        'max_batch_size',
+    ];
+
+    public function claims()
+    {
+        return $this->hasMany(Claim::class);
+    }
 } 
