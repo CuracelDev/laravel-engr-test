@@ -9,9 +9,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('insurers', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('code')->unique();
+            $table->integer('capacity_limit');
+            $table->integer('min_batch_size');
+            $table->integer('max_batch_size');
+            $table->enum('date_preffered_type', ['encounter_date', 'submission_date'])->default('submission_date');
             $table->timestamps();
         });
     }
@@ -20,4 +24,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('insurers');
     }
-}; 
+};

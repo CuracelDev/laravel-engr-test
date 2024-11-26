@@ -6,7 +6,27 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('SubmitOrder');
+    return inertia('Welcome');
+});
+
+Route::get('/SubmitClaim', function () {
+    return inertia('SubmitClaim');
+});
+
+Route::get('/Specialty', function () {
+    return inertia('Specialty');
+});
+
+Route::get('/Provider', function () {
+    return inertia('Provider');
+});
+
+Route::get('/Insurer', function () {
+    return inertia('Insurer');
+});
+
+Route::get('/ClaimBatch', function () {
+    return inertia('ClaimBatch');
 });
 
 Route::get('/dashboard', function () {
