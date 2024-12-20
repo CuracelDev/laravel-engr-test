@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Insurer;
+use App\Models\InsurerSpecialtyCost;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class InsurerSeeder extends Seeder
+class InsurerSpecialtyCostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Insurer::factory(50)->create();
+        //
+        InsurerSpecialtyCost::factory(50)->create();
     }
 }
