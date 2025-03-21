@@ -9,6 +9,10 @@ Route::get('/', function () {
     return Inertia::render('SubmitOrder');
 });
 
+Route::get('/submit-claim', function () {
+    return Inertia::render('SubmitClaim');
+})->name('submit-claim');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

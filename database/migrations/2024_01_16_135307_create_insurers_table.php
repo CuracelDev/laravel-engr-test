@@ -9,9 +9,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('insurers', function (Blueprint $table) {
-            $table->id();
+            $table->string('code')->primary(); 
             $table->string('name');
-            $table->string('code')->unique();
+            $table->integer('daily_capacity'); 
+            $table->integer('min_batch_size'); 
+            $table->integer('max_batch_size'); 
+            $table->string('preferred_date_type'); 
+            $table->json('specialty_efficiency')->nullable();
             $table->timestamps();
         });
     }
