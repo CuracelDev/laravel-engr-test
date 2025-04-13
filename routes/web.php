@@ -1,13 +1,19 @@
 <?php
 
+use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+
 
 Route::get('/', function () {
-    return Inertia::render('SubmitOrder');
+    return Redirect::route('claim.index');
+    // return Inertia::render('SubmitOrder');
 });
+
+Route::resource('claim', ClaimController::class)->middleware([HandlePrecognitiveRequests::class]);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
