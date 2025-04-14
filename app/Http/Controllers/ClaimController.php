@@ -15,14 +15,6 @@ use Inertia\Inertia;
 class ClaimController extends Controller
 {
     /**
-     * Display a listing of the claims.
-     */
-    public function index()
-    {
-        return Inertia::render('Claims');
-    }
-
-    /**
      * Show the form for creating a new claim.
      */
     public function create()
@@ -57,6 +49,6 @@ class ClaimController extends Controller
 
         $claim->insurer->user->notify(new NewClaim($claim));
 
-        return to_route('claim.index');
+        return to_route('claim.store');
     }
 }

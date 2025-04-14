@@ -9,12 +9,11 @@ use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 
 Route::get('/', function () {
-    return Redirect::route('claim.index');
+    return Redirect::route('claim.create');
     // return Inertia::render('SubmitOrder');
 });
 
 Route::resource('claim', ClaimController::class)->middleware([HandlePrecognitiveRequests::class])->only([
-    'index',
     'create',
     'store'
 ]);;

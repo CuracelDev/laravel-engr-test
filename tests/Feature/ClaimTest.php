@@ -12,17 +12,6 @@ class ClaimTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test the index method of ClaimController.
-     */
-    public function test_claim_index_page_is_accessible(): void
-    {
-        $response = $this->get(route('claim.index'));
-
-        $response->assertStatus(200);
-        $response->assertSee('Claims');
-    }
-
-    /**
      * Test the create method of ClaimController.
      */
     public function test_claim_create_page_is_accessible(): void
@@ -58,7 +47,7 @@ class ClaimTest extends TestCase
 
         $response = $this->post(route('claim.store'), $data);
 
-        $response->assertRedirect(route('claim.index'));
+        $response->assertRedirect(route('claim.store'));
         $this->assertDatabaseHas('claims', ['name' => 'Test Claim']);
         $this->assertDatabaseHas('items', ['name' => 'Item 1']);
         $this->assertDatabaseHas('items', ['name' => 'Item 2']);
