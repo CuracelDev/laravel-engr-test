@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('speciality');
             $table->timestamps();
         });
     }
@@ -20,4 +22,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('insurers');
     }
-}; 
+};

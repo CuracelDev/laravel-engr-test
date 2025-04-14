@@ -22,15 +22,15 @@ class StoreClaimRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'insurer' => 'required|exists:insurers,id',
-            'priority' => 'required|in:' . implode(',', array_values(\App\Models\Claim::PRIORITES)),
-            'specialty' => 'required|in:' . implode(',', array_values(\App\Models\Claim::SPECIALTIES)),
+            'insurer_id' => 'required|exists:insurers,id',
+            'priority_level' => 'required|in:' . implode(',', array_values(\App\Models\Claim::PRIORITES)),
+            'speciality' => 'required|in:' . implode(',', array_values(\App\Models\Claim::SPECIALTIES)),
             'name' => 'required|string|max:255',
             'date' => 'required|date_format:Y-m-d|before:tomorrow',
             'items' => 'required|array|min:1',
             'items.*.name' => 'required|string|max:255',
             'items.*.quantity' => 'required|integer|min:1',
-            'items.*.unitPrice' => 'required|numeric|min:1',
+            'items.*.unit_price' => 'required|numeric|min:1',
         ];
     }
 }

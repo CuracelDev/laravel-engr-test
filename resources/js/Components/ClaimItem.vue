@@ -23,7 +23,7 @@
                 <td class="border border-white px-2 py-1">
                     <input
                         type="number"
-                        v-model.number="item.unitPrice"
+                        v-model.number="item.unit_price"
                         placeholder="Unit price"
                         @input="updateItems"
                         class="w-full border border-gray-300 p-1 box-border"
@@ -108,7 +108,7 @@ const emit = defineEmits(["update:modelValue"]);
 const items = ref(modelValue);
 
 function addItem() {
-    items.value.push({ name: "", unitPrice: 0, quantity: 0 });
+    items.value.push({ name: "", unit_price: 0, quantity: 0 });
     updateItems();
 }
 
@@ -118,7 +118,7 @@ function removeItem(index) {
 }
 
 function calculateSubTotal(item) {
-    return (item.unitPrice * item.quantity).toFixed(2);
+    return (item.unit_price * item.quantity).toFixed(2);
 }
 
 function updateItems() {
@@ -127,7 +127,7 @@ function updateItems() {
 
 const calculateTotal = computed(() => {
     return items.value
-        .reduce((total, item) => total + item.unitPrice * item.quantity, 0)
+        .reduce((total, item) => total + item.unit_price * item.quantity, 0)
         .toFixed(2);
 });
 </script>

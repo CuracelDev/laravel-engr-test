@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Claim;
 use App\Http\Requests\StoreClaimRequest;
 use App\Http\Requests\UpdateClaimRequest;
+use App\Models\Batch;
 use App\Models\Insurer;
+use App\Services\ClaimService;
 use Inertia\Inertia;
 
 class ClaimController extends Controller
@@ -37,40 +39,70 @@ class ClaimController extends Controller
      */
     public function store(StoreClaimRequest $request)
     {
-        info($request->all());
+        $data = $request->only([
+            'insurer_id',
+            'priority_level',
+            'speciality',
+            'name',
+            'date',
+        ]);
+
+        // TODO Comput claim figure to cover sub_total and total
+        $data['sub_total'] = ClaimService::calculateSubTotal($request->items);
+
+        $claim = Claim::create($data);
+        $claim->items()->createMany(array_map(function ($item) {
+            return [
+                ...$item,
+                'total_price' => $item['quantity'] * $item['unit_price'],
+            ];
+        }, $request->items));
+
+        $this->createBatchClaim($claim);
 
         return to_route('claim.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Claim $claim)
+    private function createBatchClaim(Claim $claim)
     {
-        //
+        info($claim);
+
+        $batch = Batch::where('date', $claim->date)
+            ->where('insurer_id', $claim->insurer_id)
+            ->first();
+
+        if (!$batch) {
+            $batch = Batch::create([
+                'date' => $claim->date,
+                'insurer_id' => $claim->insurer_id,
+                'name' => $claim->name . ' ' . date('F d Y', strtotime($claim->date)),
+            ]);
+        }
+
+        $claim->approximate_cost = $this->generateApproxCost($claim);
+        $claim->batch_id = $batch->id;
+        $claim->save();
+
+        info($batch);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Claim $claim)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateClaimRequest $request, Claim $claim)
-    {
-        //
-    }
+    private function generateApproxCost(Claim $claim): float {
+        $day = (int)(date('d', strtotime($claim->date)));
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Claim $claim)
-    {
-        //
+        $costPercentage = $day + config('constant.MIN_PROCCESSING_COST_PERCENTAGE');
+        $costPercentage = $costPercentage > config('constant.MAX_PROCCESSING_COST_PERCENTAGE')
+            ? config('constant.MAX_PROCCESSING_COST_PERCENTAGE') : $costPercentage;
+
+        // processing
+        $approxCost =  $claim->sub_total + ($claim->sub_total * ($costPercentage / 100));
+
+        // speciality
+        $approxCost -= $claim->insurer->speciality == $claim->speciality ? $claim->sub_total * 0.1 : 0;
+
+        // priority level
+        $approxCost += $claim->sub_total * ($claim->piority_level * 20) / 100;
+
+        return $approxCost;
     }
 }

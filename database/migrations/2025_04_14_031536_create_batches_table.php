@@ -6,25 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('claims', function (Blueprint $table) {
+        Schema::create('batches', function (Blueprint $table) {
             $table->id();
             $table->foreignId('insurer_id')->constrained('insurers')->onDelete('cascade');
-            $table->enum('priority_level', [1, 2, 3, 4, 5])->default(1);
-            $table->string('speciality');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->date('date');
-            $table->decimal('sub_total', 10, 2);
-            $table->foreignId('batch_id')->nullable()->constrained('batches');
             $table->enum('status', ['processed', 'pending'])->default('pending');
-            $table->decimal('approximate_cost')->default(0);
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('claims');
+        Schema::dropIfExists('batches');
     }
 };
