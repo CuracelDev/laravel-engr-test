@@ -1,0 +1,6 @@
+<?php
+
+return [
+    "MIN_PROCCESSING_COST_PERCENTAGE" => 20,
+    "MAX_PROCCESSING_COST_PERCENTAGE" => 50,
+];
