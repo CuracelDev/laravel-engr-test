@@ -25,6 +25,8 @@ class Claim extends Model
 
     const PRIORITES = [1, 2, 3, 4, 5];
     const SPECIALTIES = ["cardiology", "orthopedics", "neurology", "oncology"];
+    const STATUS_PENDING = 'pending';
+    const STATUS_PROCESSED = 'processed';
 
     /**
      * Get the items for the claims.

@@ -2,7 +2,16 @@
     <GuestLayout>
         <Head title="Submit Claim" />
 
-        <div class="card-header">Submit A Claim</div>
+        <div class="card-header flex justify-between">
+            Submit A Claim
+
+            <PrimaryButton
+                class="mb-4"
+                @click="$inertia.get(route('login'))"
+            >
+                Login
+            </PrimaryButton>
+        </div>
 
         <div class="card-body">
             <form @submit.prevent="submit">
@@ -164,7 +173,7 @@ function submit() {
 
             alert("User created.");
         },
-    })
+    });
 }
 
 console.log("submit claim page loaded");

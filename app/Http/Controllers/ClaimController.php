@@ -49,6 +49,6 @@ class ClaimController extends Controller
 
         $claim->insurer->user->notify(new NewClaim($claim));
 
-        return to_route('claim.store');
+        return to_route('claim.create');
     }
 }

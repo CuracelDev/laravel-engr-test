@@ -45,7 +45,7 @@ class ClaimTest extends TestCase
             ],
         ];
 
-        $response = $this->post(route('claim.store'), $data);
+        $response = $this->post(route('claim.create'), $data);
 
         $response->assertRedirect(route('claim.store'));
         $this->assertDatabaseHas('claims', ['name' => 'Test Claim']);

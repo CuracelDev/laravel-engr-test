@@ -14,4 +14,12 @@ class Batch extends Model
         "insurer_id",
         "name",
     ];
+
+    const STATUS_PROCESSED = 'processed';
+    const STATUS_PENDING = 'pending';
+
+    public function claims()
+    {
+        return $this->hasMany(Claim::class);
+    }
 }

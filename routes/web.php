@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 
@@ -18,9 +18,14 @@ Route::resource('claim', ClaimController::class)->middleware([HandlePrecognitive
     'store'
 ]);;
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [BatchController::class, 'index'])->name('dashboard');
+    Route::resource('batch', BatchController::class)->middleware([HandlePrecognitiveRequests::class])->only([
+        'show',
+        'update',
+    ]);
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
