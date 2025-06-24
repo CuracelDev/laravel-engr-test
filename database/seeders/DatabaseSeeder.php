@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Insurer;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ProviderSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $this->call([
+            ProviderSeeder::class
+        ]);
+        
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        Insurer::factory(10)->create();
     }
 }
