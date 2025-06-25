@@ -16,11 +16,10 @@ return new class extends Migration
     {
         Schema::create('claim_batches', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Claim::class)->constrained();
             $table->foreignIdFor(Insurer::class)->constrained();
             $table->foreignIdFor(User::class, 'provider_id');
             $table->string('key')->unique();
-            $table->decimal('total_cost', 10, 2);
+            $table->decimal('processing_cost', 10, 2);
             $table->date('batch_date');
             $table->timestamps();
         });

@@ -18,9 +18,12 @@ class ProviderClaimsController extends Controller
     public function index()
     {
         $claims = auth()->user()->claims()
+                ->with('insurer:id,name,code')
+                ->withCount('items')
                 ->when(request('search'), fn ($claims, $search) => $claims->where('specialty', 'like', "%{$search}%") )
-                ->paginate(request('limit', 10));
-        return response()->success('Claims fetched successfully', $claims);
+                ->orderBy('created_at', 'desc')
+                ->get();
+        return Inertia::render('Claims/ListClaims', compact('claims'));
     }
 
     /**
@@ -46,37 +49,5 @@ class ProviderClaimsController extends Controller
             report($th);
             return redirect()->back()->with('error', 'Claims could not be created, please try again!');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

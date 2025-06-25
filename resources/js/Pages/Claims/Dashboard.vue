@@ -27,7 +27,7 @@ const props = defineProps({
                         <button @click="$inertia.visit(route('provider-claims.create'))" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-10">Create Claim</button>
                     </div>
                     <div>
-                        <button class="outline outline-blue-600 hover:bg-blue-200 text-blue-600 font-bold py-2 px-4 rounded h-10">View Claims</button>
+                        <button @click="$inertia.visit(route('provider-claims.index'))" class="outline outline-blue-600 hover:bg-blue-200 text-blue-600 font-bold py-2 px-4 rounded h-10">View Claims</button>
                     </div>
                 </div>
             </div>

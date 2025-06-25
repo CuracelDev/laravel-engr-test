@@ -51,15 +51,15 @@ class Insurer extends Model
             $batch = $this->batches()->create([
                 'provider_id' => $provider->id,
                 'batch_date' => now(),
-                'total_cost' => $get_optimized_claims['total_cost'],
+                'processing_cost' => $get_optimized_claims['processing_cost'],
                 'key' => $batch_key
             ]);
 
             $batchable_claims = $get_optimized_claims['processable_claims'];
             Claim::whereIn('id', $batchable_claims->pluck('id'))
                 ->update([
-                    'batch_id' => $batch->id,
-                    'processed_at' => now()
+                    'claim_batch_id' => $batch->id,
+                    'processed_at' => now(),
                 ]);
             return $batch;
         });
