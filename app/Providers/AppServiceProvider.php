@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Macros\ResponseMacro;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Response;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        Response::mixin(new ResponseMacro);
     }
 
     /**
