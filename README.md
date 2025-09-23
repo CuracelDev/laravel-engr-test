@@ -33,7 +33,7 @@ Where:
 composer install
 npm install
 
-## Note: I encountered intallation error when used npm - I finally start the project with stress using pnpm.
+## Note: I encountered intallation error when used npm - I finally start the project without stress using pnpm.
 
 # Setup database
 php artisan migrate:fresh
