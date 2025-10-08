@@ -212,6 +212,7 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import Flatpickr from 'vue-flatpickr-component'; // Import the vue wrapper for flatpickr
 import 'flatpickr/dist/flatpickr.min.css';  // Import flatpickr styles globally
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 const flatpickrConfig = {
     enableTime: false, //
