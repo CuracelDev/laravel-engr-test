@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 class InsurerSeeder extends Seeder
 {
     private $insurers = [
-        ['name'=>'Insurer A', 'code'=> 'INS-A'],
-        ['name'=>'Insurer B', 'code'=> 'INS-B'],
-        ['name'=>'Insurer C', 'code'=> 'INS-C'],
-        ['name'=>'Insurer D', 'code'=> 'INS-D'],
+        ['name'=>'Insurer A', 'code'=> 'INS-A', 'email'=>'issurer1@email.com' ],
+        ['name'=>'Insurer B', 'code'=> 'INS-B', 'email'=>'issurer2@email.com' ],
+        ['name'=>'Insurer C', 'code'=> 'INS-C', 'email'=>'issurer3@email.com' ],
+        ['name'=>'Insurer D', 'code'=> 'INS-D', 'email'=>'issurer4@email.com' ],
     ];
 
     /**
