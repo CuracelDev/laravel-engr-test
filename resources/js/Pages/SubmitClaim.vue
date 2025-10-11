@@ -8,10 +8,12 @@
             <!-- Claim Form -->
             <form @submit.prevent="submitClaim">
                 <!-- Insurer Code -->
-                <div class="mb-4">
-                    <label class="block font-medium">Insurer Code</label>
-                    <input v-model="form.insurer_code" type="text" class="input" required />
-                </div>
+                <select v-model="form.insurer_code" class="input" required>
+                    <option disabled value="">Select an insurer</option>
+                    <option v-for="insurer in insurers" :key="insurer.code" :value="insurer.code">
+                        {{ insurer.name }} ({{ insurer.code }})
+                    </option>
+                </select>
 
                 <!-- Provider Name -->
                 <div class="mb-4">
@@ -117,7 +119,20 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
 import GuestLayout from '@/Layouts/GuestLayout.vue'
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const insurers = ref([])
+
+// Fetch insurers
+onMounted(async () => {
+    try {
+        const response = await axios.get('/api/insurers')
+        insurers.value = response.data
+    } catch (error) {
+        console.error('Failed to fetch insurers:', error)
+    }
+})
 
 const form = reactive({
     insurer_code: '',
@@ -154,20 +169,30 @@ function formatCurrency(amount) {
 }
 
 // Submit to API
-function submitClaim() {
+async function submitClaim() {
     const payload = {
         ...form,
         total_amount: totalAmount.value
     }
 
-    router.post('/api/claims', payload, {
-        onSuccess: () => {
-            alert('Claim submitted successfully')
-        },
-        onError: (errors) => {
-            console.error(errors)
-        }
-    })
+    try {
+        const response = await axios.post('/api/claims', payload)
+        alert('Claim submitted successfully') 
+        resetForm()
+    } catch (error) {
+        console.error(error)
+        alert('There was an error submitting the claim.')
+    }
+
+}
+
+function resetForm() {
+    form.insurer_code = ''
+    form.provider_name = ''
+    form.encounter_date = ''
+    form.specialty = ''
+    form.priority_level = 1
+    form.items = [{ name: '', unit_price: 0, quantity: 1 }]
 }
 </script>
 
