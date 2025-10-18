@@ -12,7 +12,7 @@ import { Link } from '@inertiajs/vue3';
         </div>
 
         <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
+            class="w-full sm:max-w-md lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
         >
             <slot />
         </div>
