@@ -19,4 +19,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/claims', function () {
+    return inertia('SubmitClaim');
+})->name('claims.create');
+
+Route::get('/batches', function () {
+    return inertia('Batches');
+})->name('batches.index');
+
 require __DIR__.'/auth.php';
