@@ -15,6 +15,8 @@ Same way you would install a typical laravel application.
 
 The UI is displayed on the root page
 
+See postman documnetation - https://documenter.getpostman.com/view/16995065/2sB3WpRLrZ
+
 ## Extra Notes
 
 
