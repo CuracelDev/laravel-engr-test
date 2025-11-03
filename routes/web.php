@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,11 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('SubmitOrder');
 });
+
+Route::get('/submit-claim', function () {
+    return Inertia::render('SubmitClaim');
+});
+Route::post('/submit-claim', [ClaimController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -19,4 +25,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
